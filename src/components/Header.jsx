@@ -55,8 +55,8 @@ export default function Header({categories}) {
         <DrawerOverlay />
         <DrawerContent>
           <DrawerBody>
-            <div className="text-white bg-[#0a76b6] hover:bg-[#0098ff] ">
-              <nav className="flex flex-col [&>a]:border-b-[1px] [&>a]:border-white [&>a]:p-2">
+            <div className="text-white bg-[#3D52A0] [&>a]:hover:bg-[#0098ff] ">
+              <nav className="flex flex-col [&>a]:border-b-[1px] [&>nav>a]:border-white [&>a]:p-2">
                 <Link to={"/"} className="relative">
                   Home
                 </Link>
@@ -74,25 +74,25 @@ export default function Header({categories}) {
         <div className="flex justify-between items-center gap-2 px-3 py-1">
           <Link to={"/"}>
             <img
-              className="w-60 rounded"
-              src="https://www.watch-movies.com.pk/wp-content/uploads/2022/05/logo.png"
+              className="w-44 rounded"
+              src="/logo.png"
               alt="logo"
             />
           </Link>
           <div className="w-80">
-            <form className="relative" onSubmit={handleSearch}>
+            <form className="relative flex items-center justify-between gap-3" onSubmit={handleSearch}>
               <input
-                type="search"
+                type="text"
                 name="search"
                 id="Search"
                 placeholder="Search Movie"
-                className="w-full mx-auto h-10 bg-[#082835] rounded-full pl-6 outline-none border-none text-white"
+                className="w-full mx-auto h-10 bg-[#d5d5d5] pl-3 outline-none border border-[#3D52A0] text-black"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
               <button
                 type="submit"
-                className="flex items-center justify-center gap-2 rounded-full text-black text-sm bg-white h-6 absolute top-2 right-2 hover:text-[#fe8133] duration-200 px-3"
+                className="flex items-center justify-center gap-2 text-white text-lg h-10 bg-[#3D52A0] px-3"
               >
                 <IoIosSearch />
                 <span className="hidden md:block">Search</span>
@@ -102,7 +102,7 @@ export default function Header({categories}) {
         </div>
         {isOpen ? (
           <div
-            className="fixed md:hidden right-0 h-14 z-[9999] bg-blue-400 flex items-center justify-center flex-col p-2"
+            className="fixed md:hidden right-0 h-14 z-[9999] bg-[#3D52A0] flex items-center justify-center flex-col p-2"
             ref={btnRef}
             onClick={onClose}
           >
@@ -111,7 +111,7 @@ export default function Header({categories}) {
           </div>
         ) : (
           <div
-            className="fixed md:hidden right-0 h-14 z-[9999] bg-blue-400 flex items-center justify-center flex-col p-2"
+            className="fixed md:hidden right-0 h-14 z-[9999] bg-[#3D52A0] flex items-center justify-center flex-col p-2"
             ref={btnRef}
             onClick={onOpen}
           >
@@ -119,7 +119,7 @@ export default function Header({categories}) {
             <IoMdMenu size={32} />
           </div>
         )}
-        <div className="bg-[#082835] hidden md:block">
+        <div className="bg-[#3D52A0] hidden md:block">
           <nav className="flex flex-wrap items-center [&>a]:border-r [&>a]:p-3 ">
             <Link to={"/"} className="relative">
               Home

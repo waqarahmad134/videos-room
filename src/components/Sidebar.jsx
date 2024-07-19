@@ -37,10 +37,10 @@ export default function Sidebar({categories ,actors ,actress , southActors}) {
             />
           </div>
           <div className="">
-            <h3 className="text-center font-semibold bg-[#AD1700] text-white px-2 py-1">
+            <h3 className="text-center font-semibold bg-[#3D52A0] text-white px-2 py-1">
               Categories
             </h3>
-            <ul className="bg-[#0a77b8] text-white grid grid-cols-2 [&>li]:border-b-[1px] [&>li]:border-r-[1px] [&>li]:border-black [&>li]:px-3 [&>li]:py-[2px] ">
+            <ul className="bg-[#7091E6] text-white grid grid-cols-2 [&>li]:border-b-[1px] [&>li]:border-r-[1px] [&>li]:border-black [&>li]:px-3 [&>li]:py-[2px] ">
               {categories?.data?.data?.map((genre) => (
                 <li
                   className="cursor-pointer"
@@ -53,10 +53,10 @@ export default function Sidebar({categories ,actors ,actress , southActors}) {
             </ul>
           </div>
           <div>
-            <h3 className="text-center font-semibold bg-[#AD1700] text-white px-2 py-1">
+            <h3 className="text-center font-semibold bg-[#3D52A0] text-white px-2 py-1">
               Actors
             </h3>
-            <ul className="bg-[#0a77b8] text-white grid grid-cols-2 [&>li]:border-b-[1px] [&>li]:border-r-[1px] [&>li]:border-black [&>li]:px-3 [&>li]:py-[2px] ">
+            <ul className="bg-[#7091E6] text-white grid grid-cols-2 [&>li]:border-b-[1px] [&>li]:border-r-[1px] [&>li]:border-black [&>li]:px-3 [&>li]:py-[2px] ">
               {actors?.data?.data?.map((actor) => (
                 <li
                   className="cursor-pointer"
@@ -69,10 +69,10 @@ export default function Sidebar({categories ,actors ,actress , southActors}) {
             </ul>
           </div>
           <div>
-            <h3 className="text-center font-semibold bg-[#AD1700] text-white px-2 py-1">
+            <h3 className="text-center font-semibold bg-[#3D52A0] text-white px-2 py-1">
               Actress
             </h3>
-            <ul className="bg-[#0a77b8] text-white grid grid-cols-2 [&>li]:border-b-[1px] [&>li]:border-r-[1px] [&>li]:border-black [&>li]:px-3 [&>li]:py-[2px] ">
+            <ul className="bg-[#7091E6] text-white grid grid-cols-2 [&>li]:border-b-[1px] [&>li]:border-r-[1px] [&>li]:border-black [&>li]:px-3 [&>li]:py-[2px] ">
               {actress?.data?.data?.map((actres) => (
                 <li
                   className="cursor-pointer"
@@ -85,10 +85,10 @@ export default function Sidebar({categories ,actors ,actress , southActors}) {
             </ul>
           </div>
           <div>
-            <h3 className="text-center font-semibold bg-[#AD1700] text-white px-2 py-1">
+            <h3 className="text-center font-semibold bg-[#3D52A0] text-white px-2 py-1">
               South Actors
             </h3>
-            <ul className="bg-[#0a77b8] text-white grid grid-cols-2 [&>li]:border-b-[1px] [&>li]:border-r-[1px] [&>li]:border-black [&>li]:px-3 [&>li]:py-[2px] ">
+            <ul className="bg-[#7091E6] text-white grid grid-cols-2 [&>li]:border-b-[1px] [&>li]:border-r-[1px] [&>li]:border-black [&>li]:px-3 [&>li]:py-[2px] ">
               {southActors?.data?.data?.map((actor) => (
                 <li
                   className="cursor-pointer"
@@ -102,10 +102,10 @@ export default function Sidebar({categories ,actors ,actress , southActors}) {
           </div>
         </div>
         {/* <div className="py-2">
-          <h3 className="text-center font-semibold bg-[#AD1700] text-white px-2 py-1">
+          <h3 className="text-center font-semibold bg-[#3D52A0] text-white px-2 py-1">
             Filter by Year
           </h3>
-          <ul className="bg-[#0a77b8] text-white grid grid-cols-2 [&>li]:border-b-[1px] [&>li]:border-r-[1px] [&>li]:border-black [&>li]:px-3 [&>li]:py-[2px] ">
+          <ul className="bg-[#7091E6] text-white grid grid-cols-2 [&>li]:border-b-[1px] [&>li]:border-r-[1px] [&>li]:border-black [&>li]:px-3 [&>li]:py-[2px] ">
             {years.map((year) => (
               <li
                 className="cursor-pointer"

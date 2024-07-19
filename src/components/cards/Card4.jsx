@@ -7,7 +7,7 @@ export default function Card4(props) {
     <>
       <Link
         to={`/movie/${props?.slug}`}
-        className="bg-[#004a70] text-white p-2 cursor-pointer hover:bg-black"
+        className="bg-[#7091E6] text-white p-2 cursor-pointer hover:bg-[#3D52A0]"
       >
         <img
           src={`${imgURL}${props?.img}`}
