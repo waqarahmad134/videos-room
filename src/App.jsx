@@ -8,24 +8,27 @@ import { ChakraProvider } from "@chakra-ui/react"
 import Genre from "./pages/Genre"
 import Year from "./pages/Year"
 import Search from "./pages/Search"
+import { HelmetProvider } from "react-helmet-async"
 
 function App() {
   return (
     <div>
       <ToastContainer />
-      <ChakraProvider>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/search" element={<Search />} />
-            <Route path="/movie/:slug" element={<Post />} />
-            <Route path="/:categories/:Id" element={<Genre />} />
-            <Route path="/year/:year" element={<Year />} />
-            <Route path="*" element={<ErrorPage />} />
-          </Routes>
-        </BrowserRouter>
-      </ChakraProvider>
+      <HelmetProvider>
+        <ChakraProvider>
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/search" element={<Search />} />
+              <Route path="/movie/:slug" element={<Post />} />
+              <Route path="/:categories/:Id" element={<Genre />} />
+              <Route path="/year/:year" element={<Year />} />
+              <Route path="*" element={<ErrorPage />} />
+            </Routes>
+          </BrowserRouter>
+        </ChakraProvider>
+      </HelmetProvider>
     </div>
   )
 }

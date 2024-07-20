@@ -3,6 +3,11 @@ import { useParams } from "react-router-dom"
 import GetAPI from "../utilities/GetAPI"
 import { imgURL } from "../utilities/URL"
 import DefaultLayout from "../Layout/DefaultLayout"
+import { Helmet } from "react-helmet-async"
+import { FaWhatsappSquare } from "react-icons/fa";
+import { FaSquareXTwitter ,FaLinkedin ,FaFacebook  } from "react-icons/fa6";
+
+
 
 export default function Post() {
   const { slug } = useParams()
@@ -17,21 +22,51 @@ export default function Post() {
     }
   }, [data])
 
+  const currentUrl = window.location.href;
+
+  const shareLinks = {
+    facebook: `https://www.facebook.com/sharer/sharer.php?u=${currentUrl}`,
+    twitter: `https://twitter.com/intent/tweet?url=${currentUrl}&text=${movieData?.title}`,
+    linkedin: `https://www.linkedin.com/shareArticle?url=${currentUrl}&title=${movieData?.title}`,
+    whatsapp: `https://wa.me/?text=${currentUrl}`,
+  };
+
   if (loading) {
-    return (
-      <div>
-        as
-      </div>
-    )
+    return <div>Loading</div>
   } else
     return (
       <>
+        <Helmet>
+          <meta http-equiv="Permissions-Policy" content="fullscreen=(self)" />
+        </Helmet>
         <DefaultLayout>
           <main className="md:col-span-8 p-4 bg-[#373737]">
             <h2 className="text-2xl font-bold text-white mb-4">
               {movieData?.title}
             </h2>
-            
+            <div className="text-lg text-red-600 font-semibold">
+              To play Movie Click on Play icon on Player 2-3 times until Movie
+              Starts, During this Few Useless windows opened just close them
+              they are ADS.
+              <br /> If the Movie keeps buffering, Just pause it for 5-10
+              minutes then continue playing!.{" "}
+            </div>
+            <div className="flex items-center justify-center gap-4 my-4">
+              <a href={shareLinks.facebook} target="_blank" rel="noopener noreferrer" className="text-blue-400">
+                <FaFacebook  size={32} />
+              </a>
+              <a href={shareLinks.twitter} target="_blank" rel="noopener noreferrer" className="text-blue-300">
+                <FaSquareXTwitter size={32} />
+              </a>
+              <a href={shareLinks.linkedin} target="_blank" rel="noopener noreferrer" className="text-blue-500">
+                <FaLinkedin size={32} />
+              </a>
+              <a href={shareLinks.whatsapp} target="_blank" rel="noopener noreferrer" className="text-green-500">
+              <FaWhatsappSquare size={32}/>
+              </a>
+            </div>
+
+
             <div className="my-5">
               <div className="text-white py-3">
                 <b>{movieData?.description}</b>
@@ -48,9 +83,9 @@ export default function Post() {
                         width="100%"
                         height="315"
                         src={movieData?.iframe_link1}
-                        frameborder="0"
-                        allow="autoplay"
-                        allowfullscreen
+                        data-src={movieData?.iframe_link1}
+                        allow="autoplay; fullscreen https://ok.ru/"
+                        allowFullScreen={true}
                       ></iframe>
                     </>
                   ) : (
