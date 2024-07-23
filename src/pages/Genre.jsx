@@ -36,8 +36,8 @@ export default function Genre() {
   return (
     <>
       <DefaultLayout>
-        <main className="md:col-span-8 p-4 bg-[#373737]">
-          <h2 className="text-2xl  text-white mb-4">
+        <main className="md:col-span-8 p-1 sm:p-4 bg-[#373737]">
+          <h2 className="text-2xl text-white mb-4">
             Movies By{" "}
             <strong className="capitalize">{categories || "Categories"}</strong>
             &nbsp; | {name}
@@ -68,7 +68,7 @@ export default function Genre() {
           ) : (
             <>
               {movies.length > 0 ? (
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-2 sm:gap-4">
                   {movies?.map((movie, index) => (
                     <Card4
                       key={index}

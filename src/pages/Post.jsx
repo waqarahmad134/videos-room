@@ -4,15 +4,14 @@ import GetAPI from "../utilities/GetAPI"
 import { imgURL } from "../utilities/URL"
 import DefaultLayout from "../Layout/DefaultLayout"
 import { Helmet } from "react-helmet-async"
-import { FaWhatsappSquare } from "react-icons/fa";
-import { FaSquareXTwitter ,FaLinkedin ,FaFacebook  } from "react-icons/fa6";
-
-
+import { FaWhatsappSquare } from "react-icons/fa"
+import { FaSquareXTwitter, FaLinkedin, FaFacebook } from "react-icons/fa6"
 
 export default function Post() {
   const { slug } = useParams()
   const [loading, setLoading] = useState(true)
   const [movieData, setMovieData] = useState(null)
+  const [issue, setIssue] = useState(false)
   const { data } = GetAPI(`movie/${slug}`)
 
   useEffect(() => {
@@ -22,14 +21,18 @@ export default function Post() {
     }
   }, [data])
 
-  const currentUrl = window.location.href;
+  const currentUrl = window.location.href
 
   const shareLinks = {
     facebook: `https://www.facebook.com/sharer/sharer.php?u=${currentUrl}`,
     twitter: `https://twitter.com/intent/tweet?url=${currentUrl}&text=${movieData?.title}`,
     linkedin: `https://www.linkedin.com/shareArticle?url=${currentUrl}&title=${movieData?.title}`,
     whatsapp: `https://wa.me/?text=${currentUrl}`,
-  };
+  }
+
+  const handleReport = (e) => {
+    e.preventDefault()
+  }
 
   if (loading) {
     return <div>Loading</div>
@@ -52,20 +55,39 @@ export default function Post() {
               minutes then continue playing!.{" "}
             </div>
             <div className="flex items-center justify-center gap-4 my-4">
-              <a href={shareLinks.facebook} target="_blank" rel="noopener noreferrer" className="text-blue-400">
-                <FaFacebook  size={32} />
+              <a
+                href={shareLinks.facebook}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-400"
+              >
+                <FaFacebook size={32} />
               </a>
-              <a href={shareLinks.twitter} target="_blank" rel="noopener noreferrer" className="text-blue-300">
+              <a
+                href={shareLinks.twitter}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-300"
+              >
                 <FaSquareXTwitter size={32} />
               </a>
-              <a href={shareLinks.linkedin} target="_blank" rel="noopener noreferrer" className="text-blue-500">
+              <a
+                href={shareLinks.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-500"
+              >
                 <FaLinkedin size={32} />
               </a>
-              <a href={shareLinks.whatsapp} target="_blank" rel="noopener noreferrer" className="text-green-500">
-              <FaWhatsappSquare size={32}/>
+              <a
+                href={shareLinks.whatsapp}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-green-500"
+              >
+                <FaWhatsappSquare size={32} />
               </a>
             </div>
-
 
             <div className="my-5">
               <div className="text-white py-3">
@@ -77,7 +99,7 @@ export default function Post() {
                   {movieData?.iframe_link1 ? (
                     <>
                       <h4 className="text-white text-xl">
-                        {movieData?.title} Player{" "}
+                        {movieData?.title} Player 1
                       </h4>
                       <iframe
                         width="100%"
@@ -96,15 +118,14 @@ export default function Post() {
                   {movieData?.iframe_link2 ? (
                     <>
                       <h4 className="text-white text-xl">
-                        {movieData?.title} Player{" "}
+                        {movieData?.title} Player 2
                       </h4>
                       <iframe
                         width="100%"
                         height="315"
                         src={movieData?.iframe_link2}
-                        frameborder="0"
                         allow="autoplay"
-                        allowfullscreen
+                        allowFullScreen
                       ></iframe>
                     </>
                   ) : (
@@ -115,15 +136,14 @@ export default function Post() {
                   {movieData?.iframe_link3 ? (
                     <>
                       <h4 className="text-white text-xl">
-                        {movieData?.title} Player{" "}
+                        {movieData?.title} Player 3
                       </h4>
                       <iframe
                         width="100%"
                         height="315"
                         src={movieData?.iframe_link3}
-                        frameborder="0"
                         allow="autoplay"
-                        allowfullscreen
+                        allowFullScreen
                       ></iframe>
                     </>
                   ) : (
@@ -132,22 +152,139 @@ export default function Post() {
                 </div>
               </div>
 
+              <div className="flex items-center justify-center gap-4 my-4">
+                <a
+                  href={shareLinks.facebook}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-400"
+                >
+                  <FaFacebook size={32} />
+                </a>
+                <a
+                  href={shareLinks.twitter}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-300"
+                >
+                  <FaSquareXTwitter size={32} />
+                </a>
+                <a
+                  href={shareLinks.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-500"
+                >
+                  <FaLinkedin size={32} />
+                </a>
+                <a
+                  href={shareLinks.whatsapp}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-green-500"
+                >
+                  <FaWhatsappSquare size={32} />
+                </a>
+              </div>
+
+              <div className="text-center text-base bg-red-600 text-white p-2 w-11/12 mx-auto">
+                <button
+                  onClick={() => {
+                    setIssue(!issue)
+                  }}
+                >
+                  Click Here To Report If Video Not Working OR Bad Video Quality
+                  OR Any Other Issue{" "}
+                </button>
+              </div>
+              {issue && (
+                <div className="bg-gray-100 border-t-4 border-red-500 my-5">
+                  <form onSubmit={handleReport} className="p-5">
+                    <div className="grid grid-cols-2 gap-5">
+                      <div>
+                        <label
+                          for="countries"
+                          className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                        >
+                          Select an option
+                        </label>
+                        <select
+                          id="countries"
+                          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        >
+                          <option selected>Choose Issue</option>
+                          <option value="Movie Not Working">
+                            Movie Not Working
+                          </option>
+                          <option value="Downlaod Link Not Working">
+                            Downlaod Link Not Working
+                          </option>
+                          <option value="Player Are Deleted">
+                            Player Are Deleted
+                          </option>
+                          <option value="Slow Buffering Speed">
+                            Slow Buffering Speed
+                          </option>
+                          <option value="Other">Other</option>
+                        </select>
+                        <div>
+                          <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                            Your name
+                          </label>
+                          <input
+                            type="text"
+                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                          />
+                        </div>
+                        <div>
+                          <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                            Your Email
+                          </label>
+                          <input
+                            type="text"
+                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                          />
+                        </div>
+                      </div>
+                      <div>
+                        <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                          Details
+                        </label>
+                        <textarea
+                          rows="8"
+                          className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+                        ></textarea>
+                      </div>
+                    </div>
+                    <div className="bg-red-600 p-2 text-center text-white mt-5">
+                      <button type="submit">Submit Report</button>
+                    </div>
+                  </form>
+                </div>
+              )}
+
               <div className="[&>div]:mb-3 [&>div]:cursor-pointer my-3">
-                <div className="text-center underline text-lg font-semibold bg-white text-red-500 p-2">
-                  <a href={movieData?.download_link1} target="_blank">
-                    Click Here To Download From Link 1
-                  </a>
-                </div>
-                <div className="text-center underline text-lg font-semibold bg-white text-red-500 p-2">
-                  <a href={movieData?.download_link2} target="_blank">
-                    Click Here To Download From Link 2
-                  </a>
-                </div>
-                <div className="text-center underline text-lg font-semibold bg-white text-red-500 p-2">
-                  <a href={movieData?.download_link3} target="_blank">
-                    Click Here To Download From Link 3
-                  </a>
-                </div>
+                {movieData?.download_link1 && (
+                  <div className="text-center underline text-lg font-semibold bg-white text-red-500 p-2">
+                    <a href={movieData?.download_link1} target="_blank">
+                      Click Here To Download From Link 1
+                    </a>
+                  </div>
+                )}
+                {movieData?.download_link2 && (
+                  <div className="text-center underline text-lg font-semibold bg-white text-red-500 p-2">
+                    <a href={movieData?.download_link2} target="_blank">
+                      Click Here To Download From Link 2
+                    </a>
+                  </div>
+                )}
+                {movieData?.download_link3 && (
+                  <div className="text-center underline text-lg font-semibold bg-white text-red-500 p-2">
+                    <a href={movieData?.download_link3} target="_blank">
+                      Click Here To Download From Link 3
+                    </a>
+                  </div>
+                )}
               </div>
             </div>
 

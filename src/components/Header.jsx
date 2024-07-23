@@ -10,6 +10,7 @@ import {
 } from "@chakra-ui/react"
 import { IoClose } from "react-icons/io5"
 import axios from "axios"
+import { BASE_URL } from "../utilities/URL"
 
 export default function Header({categories}) {
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -17,32 +18,26 @@ export default function Header({categories}) {
   const [searchTerm, setSearchTerm] = useState("")
   const navigate = useNavigate()
 
+  
   const handleSearch = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     try {
-      const response = await axios.get(
-        "https://api.themoviedb.org/3/search/movie",
-        {
-          params: {
-            query: searchTerm,
-            language: "en-US",
-          },
-          headers: {
-            Authorization:
-              "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIwMWQyYTUwNDE2Y2M5ZWQyMzRkMmFjOTdhODhhNjU5NyIsIm5iZiI6MTcxOTczNzE1MC41NjAyMzUsInN1YiI6IjY2ODExYTQxYWQ5YTE0MjlkYTE4YTg4YSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.MrzJJrxqs6FQdsv7rC0Qc4CYl4EL70F3ckZj9ajkh-c",
-            accept: "application/json",
-          },
-        }
-      )
+      const response = await axios.get(`${BASE_URL}search`, {
+        params: {
+          title: searchTerm,
+        },
+      });
+console.log(response?.data?.data)
       localStorage.setItem(
-        "searchResults",
-        JSON.stringify(response?.data?.results)
-      )
-      navigate("/search")
+        'searchResults',
+        JSON.stringify(response.data.data)
+      );
+
+      navigate('/search');
     } catch (error) {
-      console.error("Error searching movies:", error)
+      console.error('Error searching movies:', error);
     }
-  }
+  };
 
   return (
     <>

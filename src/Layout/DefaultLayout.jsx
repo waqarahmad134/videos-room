@@ -18,6 +18,7 @@ export default function DefaultLayout({ children }) {
   const actors = GetAPI("actors")
   const actress = GetAPI("actress")
   const southActors = GetAPI("southactor")
+  const mostViewedThisWeek = GetAPI("mostViewedThisWeek")
 
   const fetchData = () => {
     axios.get(BASE_URL + "categories").then((dat) => {
@@ -59,6 +60,7 @@ export default function DefaultLayout({ children }) {
           actors={actors}
           actress={actress}
           southActors={southActors}
+          mostViewedThisWeek={mostViewedThisWeek}
         />
       </div>
       <Footer />

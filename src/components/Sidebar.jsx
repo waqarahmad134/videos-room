@@ -1,7 +1,9 @@
 import React from "react"
 import { useNavigate } from "react-router-dom"
+import { imgURL } from "../utilities/URL"
 
-export default function Sidebar({categories ,actors ,actress , southActors}) {
+export default function Sidebar({ categories, actors, actress, southActors ,mostViewedThisWeek }) {
+  console.log("🚀 ~ Sidebar ~ mostViewedThisWeek:", mostViewedThisWeek)
   const navigate = useNavigate()
   const startYear = 1990 // Start year
   const endYear = new Date().getFullYear() // Current year
@@ -17,6 +19,12 @@ export default function Sidebar({categories ,actors ,actress , southActors}) {
   // const handleYearClick = (year) => {
   //   navigate(`/year/${year}`, { state: { year } })
   // }
+  const truncateString = (str, num) => {
+    if (str.length <= num) {
+      return str;
+    }
+    return str.slice(0, num) + '...';
+  };
 
   return (
     <>
@@ -36,6 +44,26 @@ export default function Sidebar({categories ,actors ,actress , southActors}) {
               className="m-auto"
             />
           </div>
+          <div>
+            <h3 className="text-center font-semibold bg-[#3D52A0] text-white px-2 py-1">
+              THIS WEEK MOST VIEWED MOVIES
+            </h3>
+            <ul className="bg-[#7091E6] text-white ">
+              {mostViewedThisWeek?.data?.data?.map((data , index) => (
+                <div className="flex items-center gap-2 p-1 border-b border-b-black">
+                  <img className="h-[55px] w-[65px] object-contain"  src={`${imgURL}${data?.thumbnail}`} alt={data?.title} />
+                  
+                  <li
+                    className="cursor-pointer"
+                    onClick={() => handleGenreClick(data?.id)}
+                    key={index}
+                  >
+                    {truncateString(data?.title, 50)}
+                  </li>
+                </div>
+              ))}
+            </ul>
+          </div>
           <div className="">
             <h3 className="text-center font-semibold bg-[#3D52A0] text-white px-2 py-1">
               Categories
@@ -44,7 +72,7 @@ export default function Sidebar({categories ,actors ,actress , southActors}) {
               {categories?.data?.data?.map((genre) => (
                 <li
                   className="cursor-pointer"
-                  onClick={() => handleGenreClick(genre?.id, 'categories')}
+                  onClick={() => handleGenreClick(genre?.id, "categories")}
                   key={genre.id}
                 >
                   {genre.name}
@@ -52,6 +80,7 @@ export default function Sidebar({categories ,actors ,actress , southActors}) {
               ))}
             </ul>
           </div>
+
           <div>
             <h3 className="text-center font-semibold bg-[#3D52A0] text-white px-2 py-1">
               Actors
@@ -60,7 +89,7 @@ export default function Sidebar({categories ,actors ,actress , southActors}) {
               {actors?.data?.data?.map((actor) => (
                 <li
                   className="cursor-pointer"
-                  onClick={() => handleGenreClick(actor?.id, 'actors')}
+                  onClick={() => handleGenreClick(actor?.id, "actors")}
                   key={actor.id}
                 >
                   {actor.name}
@@ -76,7 +105,7 @@ export default function Sidebar({categories ,actors ,actress , southActors}) {
               {actress?.data?.data?.map((actres) => (
                 <li
                   className="cursor-pointer"
-                  onClick={() => handleGenreClick(actres?.id, 'actress')}
+                  onClick={() => handleGenreClick(actres?.id, "actress")}
                   key={actres.id}
                 >
                   {actres.name}
@@ -92,7 +121,7 @@ export default function Sidebar({categories ,actors ,actress , southActors}) {
               {southActors?.data?.data?.map((actor) => (
                 <li
                   className="cursor-pointer"
-                  onClick={() => handleGenreClick(actor?.id, 'southactor')}
+                  onClick={() => handleGenreClick(actor?.id, "southactor")}
                   key={actor.id}
                 >
                   {actor.name}
