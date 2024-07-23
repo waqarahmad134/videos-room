@@ -1,10 +1,39 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import Card4 from "../components/cards/Card4"
-import GetAPI from "../utilities/GetAPI"
 import DefaultLayout from "../Layout/DefaultLayout"
+import { Pagination } from "flowbite-react"
+import { BASE_URL } from "../utilities/URL"
+import axios from "axios"
+
 
 export default function Home() {
-  const { data } = GetAPI("movies")
+  const [data, setData] = useState([])
+  const [currentPage, setCurrentPage] = useState(1)
+  const [lastPage, setLastPage] = useState(1)
+
+  useEffect(() => {
+    fetchMovies(currentPage)
+  }, [currentPage])
+
+  const fetchMovies = async (page) => {
+    try {
+      const response = await axios.get(
+        `${BASE_URL}movies?page=${page}`
+      )
+      setData(response?.data?.data?.data) 
+      setLastPage(response?.data?.data?.last_page)
+    } catch (error) {
+      console.error("Error fetching movies:", error)
+    }
+  }
+
+  const onPageChange = (page) => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    })
+    setCurrentPage(page)
+  }
 
   return (
     <>
@@ -13,7 +42,7 @@ export default function Home() {
           <h2 className="text-2xl font-bold text-white mb-4">Popular Movies</h2>
           <ul></ul>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-2 sm:gap-4">
-            {data?.data?.data?.map((item, index) => (
+            {data?.map((item, index) => (
               <Card4
                 key={index}
                 slug={item?.slug}
@@ -23,6 +52,13 @@ export default function Home() {
                 views={item?.views}
               />
             ))}
+          </div>
+          <div className="flex justify-center mt-4">
+            <Pagination
+              currentPage={currentPage}
+              totalPages={lastPage}
+              onPageChange={onPageChange}
+            />
           </div>
           <div className="hidden sm:block my-5">
             <div className="text-white">
