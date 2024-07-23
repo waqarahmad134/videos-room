@@ -32,6 +32,7 @@ export default function Post() {
 
   const handleReport = (e) => {
     e.preventDefault()
+    alert("Report Submitted Sucessfully")
   }
 
   if (loading) {
