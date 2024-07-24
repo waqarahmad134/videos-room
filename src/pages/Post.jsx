@@ -11,6 +11,7 @@ export default function Post() {
   const { slug } = useParams()
   const [loading, setLoading] = useState(true)
   const [movieData, setMovieData] = useState(null)
+  console.log("🚀 ~ Post ~ movieData:", movieData)
   const [issue, setIssue] = useState(false)
   const { data } = GetAPI(`movie/${slug}`)
 
@@ -32,6 +33,7 @@ export default function Post() {
 
   const handleReport = (e) => {
     e.preventDefault()
+    setIssue(!issue)
     alert("Report Submitted Sucessfully")
   }
 
@@ -94,6 +96,16 @@ export default function Post() {
               <div className="text-white py-3">
                 <b>{movieData?.description}</b>
               </div>
+              <div>
+                {movieData?.images?.map((data, index) => (
+                  <div className="h-96 w-full object-contain mb-10" key={index}>
+                    <img
+                      src={`https://backend.videosroom.com/public/images/${data?.url}`}
+                      alt={index}
+                    />
+                  </div>
+                ))}
+              </div>
 
               <div className="[&>div]:mb-10 my-3">
                 <div>
@@ -103,8 +115,7 @@ export default function Post() {
                         {movieData?.title} Player 1
                       </h4>
                       <iframe
-                        width="100%"
-                        height="315"
+                        className="w-full h-96"
                         src={movieData?.iframe_link1}
                         data-src={movieData?.iframe_link1}
                         allow="autoplay; fullscreen https://ok.ru/"
@@ -122,8 +133,7 @@ export default function Post() {
                         {movieData?.title} Player 2
                       </h4>
                       <iframe
-                        width="100%"
-                        height="315"
+                        className="w-full h-96"
                         src={movieData?.iframe_link2}
                         allow="autoplay"
                         allowFullScreen
@@ -140,8 +150,7 @@ export default function Post() {
                         {movieData?.title} Player 3
                       </h4>
                       <iframe
-                        width="100%"
-                        height="315"
+                        className="w-full h-96"
                         src={movieData?.iframe_link3}
                         allow="autoplay"
                         allowFullScreen
@@ -292,7 +301,7 @@ export default function Post() {
             <div className="text-white flex gap-x-3">
               <div className="">
                 <img
-                  className="h-60"
+                  className="h-60 w-52 object-cover"
                   src={`${imgURL}${movieData?.thumbnail}`}
                   alt={movieData?.title}
                 />

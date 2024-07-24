@@ -24,7 +24,6 @@ export default function DefaultLayout({ children }) {
     axios.get(BASE_URL + "categories").then((dat) => {
       setCategories(dat)
       setLoading(false)
-      console.log("sa")
     })
   }
   useEffect(() => {

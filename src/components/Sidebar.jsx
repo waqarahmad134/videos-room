@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom"
 import { imgURL } from "../utilities/URL"
 
 export default function Sidebar({ categories, actors, actress, southActors ,mostViewedThisWeek }) {
-  console.log("🚀 ~ Sidebar ~ mostViewedThisWeek:", mostViewedThisWeek)
   const navigate = useNavigate()
   const startYear = 1990 // Start year
   const endYear = new Date().getFullYear() // Current year
@@ -55,7 +54,7 @@ export default function Sidebar({ categories, actors, actress, southActors ,most
                   
                   <li
                     className="cursor-pointer"
-                    onClick={() => handleGenreClick(data?.id)}
+                    onClick={() => handleGenreClick(data?.id , "movie")}
                     key={index}
                   >
                     {truncateString(data?.title, 50)}
