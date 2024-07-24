@@ -1,34 +1,46 @@
-steps:
-  - name: Checkout code
-    uses: actions/checkout@v2
+name: Deploy to Shared Hosting
 
-  - name: Install Node.js
-    uses: actions/setup-node@v2
-    with:
-      node-version: 16
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
 
-  - name: Install project dependencies
-    run: npm install
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
 
-  - name: Build React project
-    run: npm run build
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-  - name: Install lftp
-    run: sudo apt-get update && sudo apt-get install -y lftp
+      - name: Install Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16
 
-  - name: Print FTP details for debugging
-    run: |
-      echo "FTP_USERNAME=${{ secrets.WEB_FTP_USERNAME }}"
-      echo "FTP_HOST=${{ secrets.WEB_FTP_HOST }}"
+      - name: Install project dependencies
+        run: npm install
 
-  - name: Deploy to Shared Hosting using FTP
-    env:
-      FTP_USERNAME: ${{ secrets.WEB_FTP_USERNAME }}
-      FTP_PASSWORD: ${{ secrets.WEB_FTP_PASSWORD }}
-      FTP_HOST: ${{ secrets.WEB_FTP_HOST }}
-    run: |
-      cd dist # Adjust this if your build output directory is different
-      lftp -c "set ssl:verify-certificate no; open -u $FTP_USERNAME,$FTP_PASSWORD $FTP_HOST; mirror -R -e -x .git/ ./"
+      - name: Build React project
+        run: npm run build
 
-  - name: Clean up
-    run: echo "Clean up step"
+      - name: Install lftp
+        run: sudo apt-get update && sudo apt-get install -y lftp
+
+      - name: Log build directory size
+        run: du -sh dist
+
+      - name: Deploy to Shared Hosting using FTP
+        env:
+          FTP_USERNAME: "u571991607.videosroom.com"
+          FTP_PASSWORD: "GnewP@ss4131"
+          FTP_HOST: "ftp://217.196.54.86"
+        run: |
+          cd dist
+          echo "Starting FTP upload at $(date)"
+          lftp -c "set ssl:verify-certificate no; open -u $FTP_USERNAME,$FTP_PASSWORD $FTP_HOST; mirror -R -e -x .git/ ./"
+          echo "Finished FTP upload at $(date)"
+
+      - name: Clean up
+        run: echo "Clean up step"
