@@ -30,9 +30,9 @@ jobs:
 
       - name: Deploy to Shared Hosting using FTP
         env:
-          FTP_USERNAME: ${{ secrets.WEB_FTP_USERNAME }}
-          FTP_PASSWORD: ${{ secrets.WEB_FTP_PASSWORD }}
-          FTP_HOST: ${{ secrets.WEB_FTP_HOST }}
+          FTP_USERNAME: "u571991607.videosroom.com"
+          FTP_PASSWORD: "GnewP@ss4131"
+          FTP_HOST: "ftp://217.196.54.86"
         run: |
           cd dist # Adjust this if your build output directory is different
           lftp -c "set ssl:verify-certificate no; open -u $FTP_USERNAME,$FTP_PASSWORD $FTP_HOST; mirror -R -e -x .git/ ./"
