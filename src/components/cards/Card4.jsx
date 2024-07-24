@@ -22,7 +22,7 @@ export default function Card4(props) {
           className="w-full h-48 sm:h-52 object-cover object-top mb-2"
         />
         <div>
-          <p className="text-sm">Views : {props?.views}</p>
+          <p className="text-xs">Views : {props?.views}</p>
         </div>
       </Link>
     </>

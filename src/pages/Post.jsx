@@ -98,7 +98,7 @@ export default function Post() {
               </div>
               <div>
                 {movieData?.images?.map((data, index) => (
-                  <div className="h-96 w-full object-contain mb-10" key={index}>
+                  <div className="h-auto sm:h-96 w-full object-contain mb-2 sm:mb-5 overflow-hidden" key={index}>
                     <img
                       src={`https://backend.videosroom.com/public/images/${data?.url}`}
                       alt={index}

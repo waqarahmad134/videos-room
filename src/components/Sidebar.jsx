@@ -50,7 +50,7 @@ export default function Sidebar({ categories, actors, actress, southActors ,most
             <ul className="bg-[#7091E6] text-white ">
               {mostViewedThisWeek?.data?.data?.map((data , index) => (
                 <div className="flex items-center gap-2 p-1 border-b border-b-black">
-                  <img className="h-[55px] w-[65px] object-contain"  src={`${imgURL}${data?.thumbnail}`} alt={data?.title} />
+                  <img className="h-[55px] w-[65px] object-cover"  src={`${imgURL}${data?.thumbnail}`} alt={data?.title} />
                   
                   <li
                     className="cursor-pointer"
