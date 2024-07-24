@@ -39,7 +39,7 @@ jobs:
         run: |
           cd dist
           echo "Starting FTP upload at $(date)"
-          lftp -c "set ssl:verify-certificate no; open -u $FTP_USERNAME,$FTP_PASSWORD $FTP_HOST; mirror -R -e -x .git/ ./"
+          lftp -c "set ssl:verify-certificate no; open -u $FTP_USERNAME,$FTP_PASSWORD $FTP_HOST; mirror -R -x .git/ ./"
           echo "Finished FTP upload at $(date)"
 
       - name: Clean up
