@@ -5,7 +5,6 @@ import { Pagination } from "flowbite-react"
 import { BASE_URL } from "../utilities/URL"
 import axios from "axios"
 
-
 export default function Home() {
   const [data, setData] = useState([])
   const [currentPage, setCurrentPage] = useState(1)
@@ -17,10 +16,8 @@ export default function Home() {
 
   const fetchMovies = async (page) => {
     try {
-      const response = await axios.get(
-        `${BASE_URL}movies?page=${page}`
-      )
-      setData(response?.data?.data?.data) 
+      const response = await axios.get(`${BASE_URL}movies?page=${page}`)
+      setData(response?.data?.data?.data)
       setLastPage(response?.data?.data?.last_page)
     } catch (error) {
       console.error("Error fetching movies:", error)
@@ -54,11 +51,15 @@ export default function Home() {
             ))}
           </div>
           <div className="flex justify-center mt-4">
-            <Pagination
-              currentPage={currentPage}
-              totalPages={lastPage}
-              onPageChange={onPageChange}
-            />
+            {data.length > 50 ? (
+              <Pagination
+                currentPage={currentPage}
+                totalPages={lastPage}
+                onPageChange={onPageChange}
+              />
+            ) : (
+              ""
+            )}
           </div>
           <div className="hidden sm:block my-5">
             <div className="text-white">

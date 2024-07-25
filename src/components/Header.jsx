@@ -12,32 +12,38 @@ import { IoClose } from "react-icons/io5"
 import axios from "axios"
 import { BASE_URL } from "../utilities/URL"
 
-export default function Header({categories}) {
+export default function Header({ categories }) {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const btnRef = React.useRef()
   const [searchTerm, setSearchTerm] = useState("")
   const navigate = useNavigate()
 
-  
+  const getCategoryLimit = () => {
+    if (window.innerWidth >= 1024) {
+      return 8
+    } else if (window.innerWidth >= 768) {
+      return 7
+    }
+    return categories.length
+  }
+  const categoryLimit = getCategoryLimit()
+  console.log("🚀 ~ Header ~ categoryLimit:", categoryLimit)
+
   const handleSearch = async (e) => {
-    e.preventDefault();
+    e.preventDefault()
     try {
       const response = await axios.get(`${BASE_URL}search`, {
         params: {
           title: searchTerm,
         },
-      });
-console.log(response?.data?.data)
-      localStorage.setItem(
-        'searchResults',
-        JSON.stringify(response.data.data)
-      );
+      })
+      localStorage.setItem("searchResults", JSON.stringify(response.data.data))
 
-      navigate('/search');
+      navigate("/search")
     } catch (error) {
-      console.error('Error searching movies:', error);
+      console.error("Error searching movies:", error)
     }
-  };
+  }
 
   return (
     <>
@@ -55,8 +61,12 @@ console.log(response?.data?.data)
                 <Link to={"/"} className="relative">
                   Home
                 </Link>
-                {categories?.data?.data?.map((data, index) => (
-                  <Link onClick={onClose} key={index} to={`/categories/${data?.id}`}>
+                {categories?.data?.map((data, index) => (
+                  <Link
+                    onClick={onClose}
+                    key={index}
+                    to={`/categories/${data?.id}`}
+                  >
                     {data?.name}
                   </Link>
                 ))}
@@ -68,14 +78,13 @@ console.log(response?.data?.data)
       <div className="text-white bg-white w-full">
         <div className="flex justify-between items-center gap-2 px-3 py-1">
           <Link to={"/"}>
-            <img
-              className="w-44 rounded"
-              src="/logo.png"
-              alt="logo"
-            />
+            <img className="w-52 rounded" src="/logo.png" alt="logo" />
           </Link>
           <div className="w-80">
-            <form className="relative flex items-center justify-between gap-3" onSubmit={handleSearch}>
+            <form
+              className="relative flex items-center justify-between gap-3"
+              onSubmit={handleSearch}
+            >
               <input
                 type="text"
                 name="search"
@@ -115,11 +124,11 @@ console.log(response?.data?.data)
           </div>
         )}
         <div className="bg-[#3D52A0] hidden md:block">
-          <nav className="flex flex-wrap items-center [&>a]:border-r [&>a]:p-3 ">
+          <nav className="flex flex-wrap items-center [&>a]:border-r md:[&>a]:p-1 lg:[&>a]:p-2">
             <Link to={"/"} className="relative">
               Home
             </Link>
-            {categories?.data?.data?.map((data, index) => (
+            {categories?.data?.slice(0, categoryLimit).map((data, index) => (
               <Link key={index} to={`/categories/${data?.id}`}>
                 {data?.name}
               </Link>

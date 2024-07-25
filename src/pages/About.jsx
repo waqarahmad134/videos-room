@@ -9,10 +9,8 @@ import DefaultLayout from "../Layout/DefaultLayout"
 
 export default function About() {
   const action = useNavigationType()
-  console.log("🚀 ~ App ~ action:", action)
   const location = useLocation()
   const pathname = location.pathname
-  console.log("🚀 ~ App ~ pathname:", pathname)
   const { slug } = useParams()
 
   return (

@@ -6,14 +6,61 @@ import DefaultLayout from "../Layout/DefaultLayout"
 import { Helmet } from "react-helmet-async"
 import { FaWhatsappSquare } from "react-icons/fa"
 import { FaSquareXTwitter, FaLinkedin, FaFacebook } from "react-icons/fa6"
+import { PostAPI } from "../utilities/PostAPI"
+import { info_toaster, success_toaster } from "../utilities/Toaster"
 
 export default function Post() {
   const { slug } = useParams()
   const [loading, setLoading] = useState(true)
   const [movieData, setMovieData] = useState(null)
-  console.log("🚀 ~ Post ~ movieData:", movieData)
   const [issue, setIssue] = useState(false)
   const { data } = GetAPI(`movie/${slug}`)
+
+  const [complain, setComplain] = useState({
+    issue: "",
+    name: "",
+    email: "",
+    detail: "",
+  })
+
+  const onChange = (e) => {
+    setComplain({ ...complain, [e.target.name]: e.target.value })
+  }
+
+  const handleReport = async (e) => {
+    e.preventDefault()
+    const { issue, name, email, detail } = complain
+    if (name === "") {
+      info_toaster("Please Enter Name")
+    } else {
+      try {
+        let res = await PostAPI("complaints", {
+          name: name,
+          email: email,
+          issue: issue,
+          detail: detail,
+          movieTitle: data?.data?.title || "",
+        })
+        console.log(res?.data?.error?.detail?.[0])
+        if (res?.data?.status === true) {
+          success_toaster(res?.data?.message)
+          setComplain({
+            issue: "",
+            name: "",
+            email: "",
+            detail: "",
+          })
+        } else {
+          info_toaster(res?.data?.error?.detail?.[0])
+        }
+      } catch (error) {
+        console.error(error)
+        success_toaster(error)
+
+        info_toaster("An error occurred")
+      }
+    }
+  }
 
   useEffect(() => {
     if (data) {
@@ -29,12 +76,6 @@ export default function Post() {
     twitter: `https://twitter.com/intent/tweet?url=${currentUrl}&text=${movieData?.title}`,
     linkedin: `https://www.linkedin.com/shareArticle?url=${currentUrl}&title=${movieData?.title}`,
     whatsapp: `https://wa.me/?text=${currentUrl}`,
-  }
-
-  const handleReport = (e) => {
-    e.preventDefault()
-    setIssue(!issue)
-    alert("Report Submitted Sucessfully")
   }
 
   if (loading) {
@@ -98,7 +139,10 @@ export default function Post() {
               </div>
               <div>
                 {movieData?.images?.map((data, index) => (
-                  <div className="h-auto sm:h-96 w-full object-contain mb-2 sm:mb-5 overflow-hidden" key={index}>
+                  <div
+                    className="h-auto w-full object-contain mb-2 sm:mb-4 overflow-hidden"
+                    key={index}
+                  >
                     <img
                       src={`https://backend.videosroom.com/public/images/${data?.url}`}
                       alt={index}
@@ -212,17 +256,16 @@ export default function Post() {
                   <form onSubmit={handleReport} className="p-5">
                     <div className="grid grid-cols-2 gap-5">
                       <div>
-                        <label
-                          for="countries"
-                          className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                        >
+                        <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                           Select an option
                         </label>
                         <select
-                          id="countries"
+                          value={complain.issue}
+                          onChange={onChange}
+                          name="issue"
                           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         >
-                          <option selected>Choose Issue</option>
+                          <option>Choose Issue</option>
                           <option value="Movie Not Working">
                             Movie Not Working
                           </option>
@@ -242,6 +285,9 @@ export default function Post() {
                             Your name
                           </label>
                           <input
+                            value={complain.name}
+                            onChange={onChange}
+                            name="name"
                             type="text"
                             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                           />
@@ -251,7 +297,10 @@ export default function Post() {
                             Your Email
                           </label>
                           <input
-                            type="text"
+                            value={complain.email}
+                            onChange={onChange}
+                            name="email"
+                            type="email"
                             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                           />
                         </div>
@@ -261,13 +310,16 @@ export default function Post() {
                           Details
                         </label>
                         <textarea
+                          value={complain.detail}
+                          onChange={onChange}
+                          name="detail"
                           rows="8"
                           className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
                         ></textarea>
                       </div>
                     </div>
                     <div className="bg-red-600 p-2 text-center text-white mt-5">
-                      <button type="submit">Submit Report</button>
+                      <button className="w-full" type="submit">Submit Report</button>
                     </div>
                   </form>
                 </div>
