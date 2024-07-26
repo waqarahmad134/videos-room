@@ -1,6 +1,7 @@
 import React from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { imgURL } from "../utilities/URL"
+import request from "../Images/request-movie-button.jpg"
 
 export default function Sidebar({
   categories,
@@ -44,11 +45,7 @@ export default function Sidebar({
             />
           </div> */}
           <Link to={"/request-movie"} className="">
-            <img
-              src="/src/Images/request-movie-button.jpg"
-              alt=""
-              className="m-auto"
-            />
+            <img src={request} alt="" className="m-auto" />
           </Link>
           {loading ? (
             <div className="flex items-center justify-center">
@@ -80,7 +77,10 @@ export default function Sidebar({
                 </h3>
                 <ul className="bg-[#7091E6] text-white">
                   {mostViewedThisWeek?.data?.map((data, index) => (
-                    <div key={index} className="flex items-center gap-2 p-1 border-b border-b-black">
+                    <div
+                      key={index}
+                      className="flex items-center gap-2 p-1 border-b border-b-black"
+                    >
                       <div className="h-[65px] min-w-[65px] max-w-[66px]">
                         <img
                           className="h-full w-full object-cover"

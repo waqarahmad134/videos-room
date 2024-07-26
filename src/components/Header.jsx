@@ -24,10 +24,9 @@ export default function Header({ categories }) {
     } else if (window.innerWidth >= 768) {
       return 7
     }
-    return categories.length
+    return categories?.length
   }
   const categoryLimit = getCategoryLimit()
-  console.log("🚀 ~ Header ~ categoryLimit:", categoryLimit)
 
   const handleSearch = async (e) => {
     e.preventDefault()
