@@ -33,9 +33,9 @@ jobs:
 
       - name: Deploy to Shared Hosting using FTP
         env:
-          FTP_USERNAME: "u571991607.videosroom.com"
-          FTP_PASSWORD: "GnewP@ss4131"
-          FTP_HOST: "ftp://217.196.54.86"
+          FTP_USERNAME: "u504134335.videosroom"
+          FTP_PASSWORD: "GnewP@ss4131#2024"
+          FTP_HOST: "ftp://153.92.11.151"
         run: |
           cd dist
           echo "Starting FTP upload at $(date)"
