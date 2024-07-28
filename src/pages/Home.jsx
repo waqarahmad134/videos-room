@@ -63,10 +63,9 @@ export default function Home() {
           </div>
           <div className="hidden sm:block my-5">
             <div className="text-white">
-              <b>Watch Online Movies Purpose / Idea</b> <br /> Watch Online
-              Movies in HD Print Quality Free Download,Watch Full Movies Online
+              <b>Videos Room Purpose / Idea</b> <br /> Video Room in HD Print Quality Free Download,Watch Full Movies Online
               Bollywood Movies Download Latest Hollywood Movies in DVD Print
-              Quality Free. Watch Online Movies is my hobby and i daily watch 1
+              Quality Free. Videos Room is my hobby and i daily watch 1
               or 2 movies online and specially the indian movies on their
               release day i'm always watch on different websites in cam print
               but i always use google search to find the movies,then i decide

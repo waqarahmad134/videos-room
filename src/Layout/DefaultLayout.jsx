@@ -7,7 +7,7 @@ import { useDataContext } from "../context/DataContext";
 
 export default function DefaultLayout({ children }) {
   const location = useLocation();
-  const { categories, actors, actresses, southActors, mostViewedThisWeek, loading } = useDataContext();
+  const { categories, actors, actresses, southActors, mostViewedThisWeek, mostViewedLast24Hours, allTimeHighViews, latestMovies ,loading } = useDataContext();
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -24,6 +24,9 @@ export default function DefaultLayout({ children }) {
           actresses={actresses}
           southActors={southActors}
           mostViewedThisWeek={mostViewedThisWeek}
+          mostViewedLast24Hours={mostViewedLast24Hours}
+          allTimeHighViews={allTimeHighViews}
+          latestMovies={latestMovies}
           loading={loading}
         />
       </div>

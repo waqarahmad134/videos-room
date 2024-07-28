@@ -41,7 +41,6 @@ export default function Post() {
           detail: detail,
           movieTitle: data?.data?.title || "",
         })
-        console.log(res?.data?.error?.detail?.[0])
         if (res?.data?.status === true) {
           success_toaster(res?.data?.message)
           setComplain({
@@ -55,8 +54,6 @@ export default function Post() {
         }
       } catch (error) {
         console.error(error)
-        success_toaster(error)
-
         info_toaster("An error occurred")
       }
     }

@@ -1,48 +1,51 @@
-import { useDisclosure } from "@chakra-ui/react"
-import React, { useState } from "react"
-import { IoIosSearch, IoMdMenu } from "react-icons/io"
-import { Link, useNavigate } from "react-router-dom"
+import { useDisclosure } from "@chakra-ui/react";
+import React, { useState } from "react";
+import { IoIosSearch, IoMdMenu } from "react-icons/io";
+import { Link, useNavigate } from "react-router-dom";
 import {
   Drawer,
   DrawerBody,
   DrawerOverlay,
   DrawerContent,
-} from "@chakra-ui/react"
-import { IoClose } from "react-icons/io5"
-import axios from "axios"
-import { BASE_URL } from "../utilities/URL"
+} from "@chakra-ui/react";
+import { IoClose } from "react-icons/io5";
+import axios from "axios";
+import { BASE_URL } from "../utilities/URL";
 
 export default function Header({ categories }) {
-  const { isOpen, onOpen, onClose } = useDisclosure()
-  const btnRef = React.useRef()
-  const [searchTerm, setSearchTerm] = useState("")
-  const navigate = useNavigate()
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const btnRef = React.useRef();
+  const [searchTerm, setSearchTerm] = useState("");
+  const navigate = useNavigate();
 
   const getCategoryLimit = () => {
     if (window.innerWidth >= 1024) {
-      return 8
+      return 8;
     } else if (window.innerWidth >= 768) {
-      return 7
+      return 7;
     }
-    return categories?.length
-  }
-  const categoryLimit = getCategoryLimit()
+    return categories?.length;
+  };
+  const categoryLimit = getCategoryLimit();
 
   const handleSearch = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     try {
       const response = await axios.get(`${BASE_URL}search`, {
         params: {
           title: searchTerm,
         },
-      })
-      localStorage.setItem("searchResults", JSON.stringify(response.data.data))
+      });
+      const results = response.data.data;
+      localStorage.setItem("searchResults", JSON.stringify(results));
 
-      navigate("/search")
+      const event = new Event('storageChange');
+      window.dispatchEvent(event);
+      navigate("/search");
     } catch (error) {
-      console.error("Error searching movies:", error)
+      console.error("Error searching movies:", error);
     }
-  }
+  };
 
   return (
     <>
@@ -136,5 +139,5 @@ export default function Header({ categories }) {
         </div>
       </div>
     </>
-  )
+  );
 }

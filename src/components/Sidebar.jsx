@@ -1,5 +1,5 @@
-import React from "react"
-import { Link, useNavigate } from "react-router-dom"
+import React, { useState } from "react"
+import { Link, useLocation, useNavigate } from "react-router-dom"
 import { imgURL } from "../utilities/URL"
 import request from "../Images/request-movie-button.jpg"
 
@@ -9,11 +9,16 @@ export default function Sidebar({
   actress,
   southActors,
   mostViewedThisWeek,
+  mostViewedLast24Hours,
+  allTimeHighViews,
+  latestMovies,
   loading,
 }) {
   const navigate = useNavigate()
-  const startYear = 1990 // Start year
-  const endYear = new Date().getFullYear() // Current year
+  const location = useLocation()
+  const [tab, setTab] = useState("recentMovies")
+  const startYear = 1990
+  const endYear = new Date().getFullYear()
   const years = Array.from(
     { length: endYear - startYear + 1 },
     (v, k) => endYear - k
@@ -71,98 +76,219 @@ export default function Sidebar({
             </div>
           ) : (
             <>
-              <div>
-                <h3 className="text-center font-semibold bg-[#3D52A0] text-white px-2 py-1">
-                  THIS WEEK MOST VIEWED MOVIES
-                </h3>
-                <ul className="bg-[#7091E6] text-white">
-                  {mostViewedThisWeek?.data?.map((data, index) => (
-                    <div
-                      key={index}
-                      className="flex items-center gap-2 p-1 border-b border-b-black"
-                    >
-                      <div className="h-[65px] min-w-[65px] max-w-[66px]">
-                        <img
-                          className="h-full w-full object-cover"
-                          src={`${imgURL}${data?.thumbnail}`}
-                          alt={data?.title}
-                        />
-                      </div>
-                      <li
-                        className="cursor-pointer"
-                        style={{ width: "calc(100% - 90px)" }}
-                        onClick={() => handleGenreClick(data?.id, "movie")}
+              {location?.pathname.includes("movie") ? (
+                <>
+                  <div className="border border-white">
+                    <div className="grid grid-cols-2">
+                      <h3
+                        onClick={() => setTab("recentMovies")}
+                        className={` ${
+                          tab === "recentMovies"
+                            ? "border-r border-white bg-[#7091E6]"
+                            : "bg-[#3D52A0]"
+                        } cursor-pointer text-center font-semibold  text-white px-2 py-1`}
                       >
-                        {truncateString(data?.title, 50)}
-                      </li>
+                        Recent Movies
+                      </h3>
+                      <h3
+                        onClick={() => setTab("popularMovies")}
+                        className={` ${
+                          tab === "popularMovies"
+                            ? "border-l border-white bg-[#7091E6]"
+                            : "bg-[#3D52A0]"
+                        } cursor-pointer text-center font-semibold  text-white px-2 py-1`}
+                      >
+                        Popular Movies
+                      </h3>
                     </div>
-                  ))}
-                </ul>
-              </div>
-              <div className="">
-                <h3 className="text-center font-semibold bg-[#3D52A0] text-white px-2 py-1">
-                  Categories
-                </h3>
-                <ul className="bg-[#7091E6] text-white grid grid-cols-2 [&>li]:border-b-[1px] [&>li]:border-r-[1px] [&>li]:border-black [&>li]:px-3 [&>li]:py-[2px] ">
-                  {categories?.data?.map((genre) => (
-                    <li
-                      className="cursor-pointer"
-                      onClick={() => handleGenreClick(genre?.id, "categories")}
-                      key={genre.id}
-                    >
-                      {genre.name}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div>
-                <h3 className="text-center font-semibold bg-[#3D52A0] text-white px-2 py-1">
-                  Actors
-                </h3>
-                <ul className="bg-[#7091E6] text-white grid grid-cols-2 [&>li]:border-b-[1px] [&>li]:border-r-[1px] [&>li]:border-black [&>li]:px-3 [&>li]:py-[2px] ">
-                  {actors?.data?.map((actor) => (
-                    <li
-                      className="cursor-pointer"
-                      onClick={() => handleGenreClick(actor?.id, "actors")}
-                      key={actor.id}
-                    >
-                      {actor.name}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div>
-                <h3 className="text-center font-semibold bg-[#3D52A0] text-white px-2 py-1">
-                  Actress
-                </h3>
-                <ul className="bg-[#7091E6] text-white grid grid-cols-2 [&>li]:border-b-[1px] [&>li]:border-r-[1px] [&>li]:border-black [&>li]:px-3 [&>li]:py-[2px] ">
-                  {actress?.data?.map((actres) => (
-                    <li
-                      className="cursor-pointer"
-                      onClick={() => handleGenreClick(actres?.id, "actress")}
-                      key={actres.id}
-                    >
-                      {actres.name}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div>
-                <h3 className="text-center font-semibold bg-[#3D52A0] text-white px-2 py-1">
-                  South Actors
-                </h3>
-                <ul className="bg-[#7091E6] text-white grid grid-cols-2 [&>li]:border-b-[1px] [&>li]:border-r-[1px] [&>li]:border-black [&>li]:px-3 [&>li]:py-[2px] ">
-                  {southActors?.data?.map((actor) => (
-                    <li
-                      className="cursor-pointer"
-                      onClick={() => handleGenreClick(actor?.id, "southactor")}
-                      key={actor.id}
-                    >
-                      {actor.name}
-                    </li>
-                  ))}
-                </ul>
-              </div>
+                    {tab === "recentMovies" ? (
+                      <ul className="bg-[#7091E6] text-white">
+                        {latestMovies?.data?.map((data, index) => (
+                          <div
+                            key={index}
+                            className="flex items-center gap-2 p-1 border-b border-b-black"
+                          >
+                            <div className="h-[55px] min-w-[55px] max-w-[56px]">
+                              <img
+                                className="h-full w-full object-cover"
+                                src={`${imgURL}${data?.thumbnail}`}
+                                alt={data?.title}
+                              />
+                            </div>
+                            <div>
+                              <li
+                                className="capitalize cursor-pointer text-xs font-semibold"
+                                onClick={() =>
+                                  handleGenreClick(data?.id, "movie")
+                                }
+                              >
+                                {data?.title}
+                              </li>
+                              <li className="text-sm">Views : {data?.views}</li>
+                            </div>
+                          </div>
+                        ))}
+                      </ul>
+                    ) : (
+                      <ul className="bg-[#7091E6] text-white">
+                        {allTimeHighViews?.data?.map((data, index) => (
+                          <div
+                            key={index}
+                            className="flex items-center gap-2 p-1 border-b border-b-black"
+                          >
+                            <div className="h-[55px] min-w-[55px] max-w-[56px]">
+                              <img
+                                className="h-full w-full object-cover"
+                                src={`${imgURL}${data?.thumbnail}`}
+                                alt={data?.title}
+                              />
+                            </div>
+                            <div>
+                              <li
+                                className="capitalize cursor-pointer text-xs font-semibold"
+                                onClick={() =>
+                                  handleGenreClick(data?.id, "movie")
+                                }
+                              >
+                                {data?.title}
+                              </li>
+                              <li className="text-sm">Views : {data?.views}</li>
+                            </div>
+                          </div>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
+                  <div>
+                    <h3 className="text-center font-semibold bg-[#3D52A0] text-white px-2 py-1">
+                      Most Viewed Movies For 24 Hours
+                    </h3>
+                    <ul className="bg-[#7091E6] text-white">
+                      {mostViewedLast24Hours?.data?.map((data, index) => (
+                        <div
+                          key={index}
+                          className="flex items-center gap-2 p-1 border-b border-b-black"
+                        >
+                          <div className="h-[65px] min-w-[65px] max-w-[66px]">
+                            <img
+                              className="h-full w-full object-cover"
+                              src={`${imgURL}${data?.thumbnail}`}
+                              alt={data?.title}
+                            />
+                          </div>
+                          <li
+                            className="cursor-pointer"
+                            style={{ width: "calc(100% - 90px)" }}
+                            onClick={() => handleGenreClick(data?.id, "movie")}
+                          >
+                            {truncateString(data?.title, 50)}
+                          </li>
+                        </div>
+                      ))}
+                    </ul>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div>
+                    <h3 className="text-center font-semibold bg-[#3D52A0] text-white px-2 py-1">
+                      THIS WEEK MOST VIEWED MOVIES
+                    </h3>
+                    <ul className="bg-[#7091E6] text-white">
+                      {mostViewedThisWeek?.data?.map((data, index) => (
+                        <div
+                          key={index}
+                          className="flex items-center gap-2 p-1 border-b border-b-black"
+                        >
+                          <div className="h-[65px] min-w-[65px] max-w-[66px]">
+                            <img
+                              className="h-full w-full object-cover"
+                              src={`${imgURL}${data?.thumbnail}`}
+                              alt={data?.title}
+                            />
+                          </div>
+                          <li
+                            className="cursor-pointer line-clamp-2"
+                            onClick={() => handleGenreClick(data?.id, "movie")}
+                          >
+                            {data?.title}
+                          </li>
+                        </div>
+                      ))}
+                    </ul>
+                  </div>
+                  <div>
+                    <h3 className="text-center font-semibold bg-[#3D52A0] text-white px-2 py-1">
+                      Categories
+                    </h3>
+                    <ul className="bg-[#7091E6] text-white grid grid-cols-2 [&>li]:border-b-[1px] [&>li]:border-r-[1px] [&>li]:border-black [&>li]:px-3 [&>li]:py-[2px] ">
+                      {categories?.data?.map((genre) => (
+                        <li
+                          className="cursor-pointer"
+                          onClick={() =>
+                            handleGenreClick(genre?.id, "categories")
+                          }
+                          key={genre.id}
+                        >
+                          {genre.name}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div>
+                    <h3 className="text-center font-semibold bg-[#3D52A0] text-white px-2 py-1">
+                      Actors
+                    </h3>
+                    <ul className="bg-[#7091E6] text-white grid grid-cols-2 [&>li]:border-b-[1px] [&>li]:border-r-[1px] [&>li]:border-black [&>li]:px-3 [&>li]:py-[2px] ">
+                      {actors?.data?.map((actor) => (
+                        <li
+                          className="cursor-pointer"
+                          onClick={() => handleGenreClick(actor?.id, "actors")}
+                          key={actor.id}
+                        >
+                          {actor.name}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div>
+                    <h3 className="text-center font-semibold bg-[#3D52A0] text-white px-2 py-1">
+                      Actress
+                    </h3>
+                    <ul className="bg-[#7091E6] text-white grid grid-cols-2 [&>li]:border-b-[1px] [&>li]:border-r-[1px] [&>li]:border-black [&>li]:px-3 [&>li]:py-[2px] ">
+                      {actress?.data?.map((actres) => (
+                        <li
+                          className="cursor-pointer"
+                          onClick={() =>
+                            handleGenreClick(actres?.id, "actress")
+                          }
+                          key={actres.id}
+                        >
+                          {actres.name}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div>
+                    <h3 className="text-center font-semibold bg-[#3D52A0] text-white px-2 py-1">
+                      South Actors
+                    </h3>
+                    <ul className="bg-[#7091E6] text-white grid grid-cols-2 [&>li]:border-b-[1px] [&>li]:border-r-[1px] [&>li]:border-black [&>li]:px-3 [&>li]:py-[2px] ">
+                      {southActors?.data?.map((actor) => (
+                        <li
+                          className="cursor-pointer"
+                          onClick={() =>
+                            handleGenreClick(actor?.id, "southactor")
+                          }
+                          key={actor.id}
+                        >
+                          {actor.name}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </>
+              )}
             </>
           )}
         </div>
