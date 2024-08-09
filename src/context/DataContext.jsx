@@ -7,6 +7,7 @@ const DataContext = createContext();
 export const useDataContext = () => {
   return useContext(DataContext);
 };
+console.log("🚀 ~ useDataContext ~ useDataContext:", useDataContext)
 
 export const DataProvider = ({ children }) => {
   const [categories, setCategories] = useState(null);
@@ -42,6 +43,7 @@ export const DataProvider = ({ children }) => {
         setAllTimeHighViews(allTimeHighViews.data);
         setLatestMovies(latestMovies.data);
         setLoading(false);
+        console.log('sab se pehli api hit wali lauout')
       } catch (error) {
         console.error("Failed to fetch data:", error);
         setLoading(false);

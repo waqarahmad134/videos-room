@@ -5,9 +5,10 @@ import Sidebar from "../components/Sidebar";
 import { useLocation } from "react-router-dom";
 import { useDataContext } from "../context/DataContext";
 
-export default function DefaultLayout({ children }) {
+const DefaultLayout = React.memo(({ children }) => {
+  console.log('DefaultLayout rendered');
   const location = useLocation();
-  const { categories, actors, actresses, southActors, mostViewedThisWeek, mostViewedLast24Hours, allTimeHighViews, latestMovies ,loading } = useDataContext();
+  const { categories, actors, actresses, southActors, mostViewedThisWeek, mostViewedLast24Hours, allTimeHighViews, latestMovies, loading } = useDataContext();
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -33,4 +34,6 @@ export default function DefaultLayout({ children }) {
       <Footer />
     </div>
   );
-}
+});
+
+export default DefaultLayout;

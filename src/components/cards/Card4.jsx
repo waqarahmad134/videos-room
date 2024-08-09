@@ -13,7 +13,7 @@ export default function Card4(props) {
     <>
       <Link
         to={`/movie/${props?.slug}`}
-        className="bg-[#7091E6] text-white p-1 sm:p-2 cursor-pointer hover:bg-[#3D52A0]"
+        className="bg-[#395aaf] text-white p-1 sm:p-2 cursor-pointer hover:bg-[#303d70]"
       >
         <h3 className="text-sm sm:text-[17px] leading-tight mb-2">{truncateString(props?.title, 40)}</h3>
         <img

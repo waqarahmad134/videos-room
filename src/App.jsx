@@ -28,7 +28,7 @@ function App() {
                 <Route
                   path="/about"
                   element={
-                    <Suspense fallback={<div>Loading...</div>}>
+                    <Suspense fallback={<div></div>}>
                       <About />
                     </Suspense>
                   }
@@ -36,7 +36,7 @@ function App() {
                 <Route
                   path="/search"
                   element={
-                    <Suspense fallback={<div>Loading...</div>}>
+                    <Suspense fallback={<div></div>}>
                       <Search />
                     </Suspense>
                   }
@@ -44,7 +44,7 @@ function App() {
                 <Route
                   path="/request-movie"
                   element={
-                    <Suspense fallback={<div>Loading...</div>}>
+                    <Suspense fallback={<div></div>}>
                       <RequestMovie />
                     </Suspense>
                   }
@@ -52,7 +52,7 @@ function App() {
                 <Route
                   path="/movie/:slug"
                   element={
-                    <Suspense fallback={<div>Loading...</div>}>
+                    <Suspense fallback={<div></div>}>
                       <Post />
                     </Suspense>
                   }
@@ -60,7 +60,7 @@ function App() {
                 <Route
                   path="/:categories/:Id"
                   element={
-                    <Suspense fallback={<div>Loading...</div>}>
+                    <Suspense fallback={<div></div>}>
                       <Genre />
                     </Suspense>
                   }
@@ -68,7 +68,7 @@ function App() {
                 <Route
                   path="/year/:year"
                   element={
-                    <Suspense fallback={<div>Loading...</div>}>
+                    <Suspense fallback={<div></div>}>
                       <Year />
                     </Suspense>
                   }

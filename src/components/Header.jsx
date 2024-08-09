@@ -58,7 +58,7 @@ export default function Header({ categories }) {
         <DrawerOverlay />
         <DrawerContent>
           <DrawerBody>
-            <div className="text-white bg-[#3D52A0] [&>a]:hover:bg-[#0098ff] ">
+            <div className="text-white bg-[#303d70] [&>a]:hover:bg-[#0098ff] ">
               <nav className="flex flex-col [&>a]:border-b-[1px] [&>nav>a]:border-white [&>a]:p-2">
                 <Link to={"/"} className="relative">
                   Home
@@ -92,13 +92,13 @@ export default function Header({ categories }) {
                 name="search"
                 id="Search"
                 placeholder="Search Movie"
-                className="w-full mx-auto h-10 bg-[#d5d5d5] pl-3 outline-none border border-[#3D52A0] text-black"
+                className="w-full mx-auto h-10 bg-[#d5d5d5] pl-3 outline-none border border-[#303d70] text-black"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
               <button
                 type="submit"
-                className="flex items-center justify-center gap-2 text-white text-lg h-10 bg-[#3D52A0] px-3"
+                className="flex items-center justify-center gap-2 text-white text-lg h-10 bg-[#303d70] px-3"
               >
                 <IoIosSearch />
                 <span className="hidden md:block">Search</span>
@@ -108,7 +108,7 @@ export default function Header({ categories }) {
         </div>
         {isOpen ? (
           <div
-            className="fixed md:hidden right-0 h-14 z-[9999] bg-[#3D52A0] flex items-center justify-center flex-col p-2"
+            className="fixed md:hidden right-0 h-14 z-[9999] bg-[#303d70] flex items-center justify-center flex-col p-2"
             ref={btnRef}
             onClick={onClose}
           >
@@ -117,7 +117,7 @@ export default function Header({ categories }) {
           </div>
         ) : (
           <div
-            className="fixed md:hidden right-0 h-14 z-[9999] bg-[#3D52A0] flex items-center justify-center flex-col p-2"
+            className="fixed md:hidden right-0 h-14 z-[9999] bg-[#303d70] flex items-center justify-center flex-col p-2"
             ref={btnRef}
             onClick={onOpen}
           >
@@ -125,7 +125,7 @@ export default function Header({ categories }) {
             <IoMdMenu size={32} />
           </div>
         )}
-        <div className="bg-[#3D52A0] hidden md:block">
+        <div className="bg-[#303d70] hidden md:block">
           <nav className="flex flex-wrap items-center [&>a]:border-r md:[&>a]:p-1 lg:[&>a]:p-2">
             <Link to={"/"} className="relative">
               Home

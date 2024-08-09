@@ -71,7 +71,7 @@ export default function Sidebar({
                     fill="currentFill"
                   />
                 </svg>
-                <span className="sr-only">Loading...</span>
+                {/* <span className="sr-only">Loading...</span> */}
               </div>
             </div>
           ) : (
@@ -84,8 +84,8 @@ export default function Sidebar({
                         onClick={() => setTab("recentMovies")}
                         className={` ${
                           tab === "recentMovies"
-                            ? "border-r border-white bg-[#7091E6]"
-                            : "bg-[#3D52A0]"
+                            ? "border-r border-white bg-[#395aaf]"
+                            : "bg-[#303d70]"
                         } cursor-pointer text-center font-semibold  text-white px-2 py-1`}
                       >
                         Recent Movies
@@ -94,15 +94,15 @@ export default function Sidebar({
                         onClick={() => setTab("popularMovies")}
                         className={` ${
                           tab === "popularMovies"
-                            ? "border-l border-white bg-[#7091E6]"
-                            : "bg-[#3D52A0]"
+                            ? "border-l border-white bg-[#395aaf]"
+                            : "bg-[#303d70]"
                         } cursor-pointer text-center font-semibold  text-white px-2 py-1`}
                       >
                         Popular Movies
                       </h3>
                     </div>
                     {tab === "recentMovies" ? (
-                      <ul className="bg-[#7091E6] text-white">
+                      <ul className="bg-[#395aaf] text-white">
                         {latestMovies?.data?.map((data, index) => (
                           <div
                             key={index}
@@ -130,7 +130,7 @@ export default function Sidebar({
                         ))}
                       </ul>
                     ) : (
-                      <ul className="bg-[#7091E6] text-white">
+                      <ul className="bg-[#395aaf] text-white">
                         {allTimeHighViews?.data?.map((data, index) => (
                           <div
                             key={index}
@@ -160,10 +160,10 @@ export default function Sidebar({
                     )}
                   </div>
                   <div>
-                    <h3 className="text-center font-semibold bg-[#3D52A0] text-white px-2 py-1">
+                    <h3 className="text-center font-semibold bg-[#303d70] text-white px-2 py-1">
                       Most Viewed Movies For 24 Hours
                     </h3>
-                    <ul className="bg-[#7091E6] text-white">
+                    <ul className="bg-[#395aaf] text-white">
                       {mostViewedLast24Hours?.data?.map((data, index) => (
                         <div
                           key={index}
@@ -191,10 +191,10 @@ export default function Sidebar({
               ) : (
                 <>
                   <div>
-                    <h3 className="text-center font-semibold bg-[#3D52A0] text-white px-2 py-1">
+                    <h3 className="text-center font-semibold bg-[#303d70] text-white px-2 py-1">
                       THIS WEEK MOST VIEWED MOVIES
                     </h3>
-                    <ul className="bg-[#7091E6] text-white">
+                    <ul className="bg-[#395aaf] text-white">
                       {mostViewedThisWeek?.data?.map((data, index) => (
                         <div
                           key={index}
@@ -218,10 +218,10 @@ export default function Sidebar({
                     </ul>
                   </div>
                   <div>
-                    <h3 className="text-center font-semibold bg-[#3D52A0] text-white px-2 py-1">
+                    <h3 className="text-center font-semibold bg-[#303d70] text-white px-2 py-1">
                       Categories
                     </h3>
-                    <ul className="bg-[#7091E6] text-white grid grid-cols-2 [&>li]:border-b-[1px] [&>li]:border-r-[1px] [&>li]:border-black [&>li]:px-3 [&>li]:py-[2px] ">
+                    <ul className="bg-[#395aaf] text-white grid grid-cols-2 [&>li]:border-b-[1px] [&>li]:border-r-[1px] [&>li]:border-black [&>li]:px-3 [&>li]:py-[2px] ">
                       {categories?.data?.map((genre) => (
                         <li
                           className="cursor-pointer"
@@ -236,10 +236,10 @@ export default function Sidebar({
                     </ul>
                   </div>
                   <div>
-                    <h3 className="text-center font-semibold bg-[#3D52A0] text-white px-2 py-1">
+                    <h3 className="text-center font-semibold bg-[#303d70] text-white px-2 py-1">
                       Actors
                     </h3>
-                    <ul className="bg-[#7091E6] text-white grid grid-cols-2 [&>li]:border-b-[1px] [&>li]:border-r-[1px] [&>li]:border-black [&>li]:px-3 [&>li]:py-[2px] ">
+                    <ul className="bg-[#395aaf] text-white grid grid-cols-2 [&>li]:border-b-[1px] [&>li]:border-r-[1px] [&>li]:border-black [&>li]:px-3 [&>li]:py-[2px] ">
                       {actors?.data?.map((actor) => (
                         <li
                           className="cursor-pointer"
@@ -252,10 +252,10 @@ export default function Sidebar({
                     </ul>
                   </div>
                   <div>
-                    <h3 className="text-center font-semibold bg-[#3D52A0] text-white px-2 py-1">
+                    <h3 className="text-center font-semibold bg-[#303d70] text-white px-2 py-1">
                       Actress
                     </h3>
-                    <ul className="bg-[#7091E6] text-white grid grid-cols-2 [&>li]:border-b-[1px] [&>li]:border-r-[1px] [&>li]:border-black [&>li]:px-3 [&>li]:py-[2px] ">
+                    <ul className="bg-[#395aaf] text-white grid grid-cols-2 [&>li]:border-b-[1px] [&>li]:border-r-[1px] [&>li]:border-black [&>li]:px-3 [&>li]:py-[2px] ">
                       {actress?.data?.map((actres) => (
                         <li
                           className="cursor-pointer"
@@ -270,10 +270,10 @@ export default function Sidebar({
                     </ul>
                   </div>
                   <div>
-                    <h3 className="text-center font-semibold bg-[#3D52A0] text-white px-2 py-1">
+                    <h3 className="text-center font-semibold bg-[#303d70] text-white px-2 py-1">
                       South Actors
                     </h3>
-                    <ul className="bg-[#7091E6] text-white grid grid-cols-2 [&>li]:border-b-[1px] [&>li]:border-r-[1px] [&>li]:border-black [&>li]:px-3 [&>li]:py-[2px] ">
+                    <ul className="bg-[#395aaf] text-white grid grid-cols-2 [&>li]:border-b-[1px] [&>li]:border-r-[1px] [&>li]:border-black [&>li]:px-3 [&>li]:py-[2px] ">
                       {southActors?.data?.map((actor) => (
                         <li
                           className="cursor-pointer"
@@ -293,10 +293,10 @@ export default function Sidebar({
           )}
         </div>
         {/* <div className="py-2">
-          <h3 className="text-center font-semibold bg-[#3D52A0] text-white px-2 py-1">
+          <h3 className="text-center font-semibold bg-[#303d70] text-white px-2 py-1">
             Filter by Year
           </h3>
-          <ul className="bg-[#7091E6] text-white grid grid-cols-2 [&>li]:border-b-[1px] [&>li]:border-r-[1px] [&>li]:border-black [&>li]:px-3 [&>li]:py-[2px] ">
+          <ul className="bg-[#395aaf] text-white grid grid-cols-2 [&>li]:border-b-[1px] [&>li]:border-r-[1px] [&>li]:border-black [&>li]:px-3 [&>li]:py-[2px] ">
             {years.map((year) => (
               <li
                 className="cursor-pointer"
